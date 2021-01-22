@@ -160,16 +160,28 @@ class Fun(commands.Cog):
     @commands.command()
     async def mock(self, ctx, *,text=None):
         if text == None:
-            await ctx.send("Please enter some text!")
-        else:
-            res = ""
-            for c in text:
-                chance = random.randint(0,1)
-                if chance:
-                    res += c.upper()
-                else:
-                    res += c.lower()
-            await ctx.send(res)
+            await ctx.send("Please enter some text! Correct usage is `e!mock <text>`")
+            return
+        
+        res = ""
+        for c in text:
+            chance = random.randint(0,1)
+            if chance:
+                res += c.upper()
+            else:
+                res += c.lower()
+                
+        await ctx.send(res)
+    
+    @commands.command()
+    async def tm(self, ctx, *, text=None):
+        if text == None:
+            await ctx.send("Invalid arguments! Correct usage is `e!tm <text>`")
+        
+        if "@" in text:
+            text.replace("@", "@​")
+        
+        await ctx.send(text + ":tm")
 
 def setup(client):
     client.add_cog(Fun(client))
